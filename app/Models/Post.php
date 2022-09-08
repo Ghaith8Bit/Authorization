@@ -22,12 +22,12 @@ class Post extends Model
     ];
 
     /**
-     * Get the post that owns the Post
+     * Get the user that owns the Post
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function post(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Post::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
