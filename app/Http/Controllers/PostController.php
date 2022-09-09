@@ -53,6 +53,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -65,7 +66,9 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id)
     {
-        Post::findOrFail($id)->update([
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
+        $post->update([
             'title' => $request->title,
             'content' => $request->content,
         ]);
@@ -80,7 +83,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Post::findOrFail($id)->delete();
+        $post = Post::findOrFail($id);
+        $this->authorize('delete', $post);
+        $post->delete();
         return redirect()->route('post.index');
     }
 }
